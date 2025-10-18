@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact information</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#0066ff;
+      --accent-600:#0050d4;
+      --input-border:#e6eef9;
+      --success:#ecfdf5;
+      --danger:#fff1f2;
+      --radius:14px;
+      --max-width:820px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:linear-gradient(180deg,var(--bg),#eef6ff 60%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:40px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .wrap{width:100%;max-width:var(--max-width);padding:18px}
+
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:0 12px 40px rgba(12,18,35,0.08);padding:28px}
+
+    .header-row{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+    .logo-badge{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-600));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px}
+    h1{font-size:22px;margin:0;font-weight:700}
+
+    .subtle{color:var(--muted);font-size:13px;margin-top:6px}
+
+    .notice{padding:12px 14px;border-radius:10px;margin:16px 0;font-size:14px}
+    .notice.success{background:var(--success);color:#065f46}
+    .notice.error{background:var(--danger);color:#7f1d1d}
+
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-top:12px}
+    .full{grid-column:1/-1}
+
+    label{display:block;font-size:13px;color:#334155;margin-bottom:6px;font-weight:600}
+    input[type=text], input[type=email], textarea{
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid var(--input-border);
+      background:#fff;
+      color:#0f172a;
+      font-size:14px;
+      outline:none;
+      transition:box-shadow .15s ease, border-color .15s ease, transform .06s ease;
+    }
+
+    input:focus, textarea:focus{border-color:var(--accent);box-shadow:0 12px 30px rgba(2,6,23,0.06)}
+    textarea{min-height:120px;resize:vertical}
+
+    .actions{display:flex;gap:12px;align-items:center}
+    .btn{appearance:none;border:0;padding:10px 16px;border-radius:10px;background:var(--accent);color:white;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(2,48,120,0.12);transition:transform .08s ease}
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{background:#f3f6ff;color:var(--accent-600);font-weight:600}
+
+    .muted-small{color:var(--muted);font-size:13px}
+
+    @media (max-width:860px){form{grid-template-columns:1fr}.header-row{gap:12px}.logo-badge{width:48px;height:48px}}
+    @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="header-row">
+        <div class="logo-badge">CI</div>
+        <div>
+          <h1>Contact information</h1>
+        </div>
+      </div>
+
+      {% if success and message %}
+        <div class="notice success">{{ message }}</div>
+      {% elif success and not message %}
+        <div class="notice error">There was an issue submitting the form.</div>
+      {% endif %}
+
+      <form action="/submit" method="post">
+        <div>
+          <label for="name">Name *</label>
+          <input id="name" name="name" type="text" required placeholder="Your name">
+        </div>
+
+        <div>
+          <label for="email">Email *</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com">
+        </div>
+
+        <div class="full">
+          <label for="address">Address *</label>
+          <textarea id="address" name="address" required placeholder="Your address"></textarea>
+        </div>
+
+        <div>
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="text" placeholder="Optional">
+        </div>
+
+        <div class="actions full">
+          <button type="submit" class="btn">Submit</button>
+          <button type="reset" class="btn secondary">Clear</button>
+        </div>
+      </form>
+
+      <p class="muted-small" style="margin-top:16px">This page sends data to the owner; you remain on this page after submission.</p>
+    </div>
+  </div>
+</body>
+</html>
